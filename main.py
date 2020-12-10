@@ -38,10 +38,10 @@ def uploadLabel():
         person1, person2 = conv.converter()
         print("ConvPESSOA1: ", person1)
         print("ConvPESSOA2: ", person2)
-        except:
-            print('Algo aconteceu')
+    except:
+        print('Algo aconteceu')
             
-        return redirect(url_for('novo'))
+    return redirect(url_for('novo'))
 
 
 @app.route('/novo')
