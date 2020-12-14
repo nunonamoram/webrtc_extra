@@ -1,4 +1,5 @@
-# imports 
+# imports
+import shutil 
 import os
 from flask import Flask, request, make_response
 from flask import Blueprint, render_template, redirect, url_for, request, flash
@@ -40,18 +41,20 @@ def uploadLabel():
         print("ConvPESSOA2: ", person2)
     except:
         print('Algo aconteceu')
-            
+        INPUT_FOLDER_PATH = "input/"
+        OUTPUT_FOLDER_PATH = "output/"
+        for subdir in os.listdir(INPUT_FOLDER_PATH):
+            if subdir != 'boon':
+                shutil.rmtree(os.path.join(INPUT_FOLDER_PATH, subdir))
+        for subdir in os.listdir(OUTPUT_FOLDER_PATH):
+            if subdir != 'boon':
+                shutil.rmtree(os.path.join(OUTPUT_FOLDER_PATH, subdir))
+                
     return redirect(url_for('novo'))
 
 
 @app.route('/novo')
 def novo():
-    global person1, person2
-    print('NOVO: ', person1)
-    print('NOVO2: ', person2) 
-    if (person1 and person2) == '':
-        person1= 'Ainda não obtido, aguarde'
-        person2= 'Ainda não obtido, aguarde'
     print("PESSOA1: ", person1)
     print("PESSOA2: ", person2)
     return render_template('profile.html', p1=person1, p2=person2)
